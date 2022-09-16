@@ -12,16 +12,12 @@ class TestMethods(unittest.TestCase):  # Class containing all the tests that wil
   test_input = '9a%@*&^j;\'6.'
   self.assertEqual((testing_function := validate_number(test_input)), expected, 'Did not get 96, expected 96')
   
- def test_validate_number_low(self): # Test validate_number for a lower than expected input
-  expect_low = 'Value is too low'
-  test_low = '0'
-  self.assertEqual((testing_function := validate_number(test_low)), expect_low, 'Did not get Value is too low, expected Value is too low')
-  
- def test_validate_number_high(self): # Test validate_number for a higher than expected input
-  expect_high = 'Value is too high'
-  test_high = '100'
-  self.assertEqual((testing_function := validate_number(test_high)), expect_high, 'Did not get Value is too high, expected Value is too high')
-  
+ def test_validate_number_low_high(self):
+  expect = ['Value is too low', 'Value is too high']
+  test = [0, 100]
+  for i in range(len(expect)):
+   self.assertEqual((testing_function := validate_number(test[i])), expect[i], 'Did not get {}, expected {}'.format(expect[i], expect[i]))
+
  def test_validate_number_invalid(self): # Test validate_number for an invalid input
   expect_invalid = 'Number invalid'
   test_invalid = 'Hello there!'
