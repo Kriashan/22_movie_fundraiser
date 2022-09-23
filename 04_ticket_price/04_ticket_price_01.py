@@ -13,7 +13,7 @@ class TestMethods(unittest.TestCase):  # Class containing all the tests that wil
   self.assertNotEqual((testing_function := get_user_age()), not_wanted, 'A blank output was returned')
 
  def test_validate_number_valid(self) -> "Test validate_number for a valid input with noise":
-  expected = True
+  expected_outputs = True
   test_input = '9a%@*&^j;\'6.'
   self.assertEqual((testing_function := validate_age(test_input)), expected, 'Expected 96')
 
@@ -42,7 +42,7 @@ def get_user_name() -> "Return the persons name":
  return ask_question('What is your first name?', '[a-zA-Z]')
 
 
-def get_user_age(min_age=12, max_age=113) -> "Return the persons age":
+def get_user_age(min_age=12, max_age=130) -> "Return the persons age":
  if validate_age(response := ask_question('What is your age?', '[0-9]'), min_age, max_age):
   return response
  print("Your age must be an integer between {} and {}".format(min_age, max_age))
@@ -56,7 +56,7 @@ def ask_question(ask='', valid_characters='') -> "Ask question until the answer 
  return ask_question(ask, valid_characters)
 
 
-def validate_age(number='', low_range=12, high_range=113) -> "Validate if the users age is valid":
+def validate_age(number='', low_range=12, high_range=130) -> "Validate if the users age is valid":
  # add 0 so no blank and divide by 10 to remove shifting
  if high_range > (answer := int((''.join(re.findall('[0-9]', number)) + '0')) // 10) > low_range:
   return True
