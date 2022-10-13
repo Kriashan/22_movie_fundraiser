@@ -38,7 +38,7 @@ def ask_user_question(ask='', re_filter='', expected_type='str'):
             return None
         return answer
     else:
-        sys.stdout.write('Input cannot be blank\n')
+        sys.stdout.write('Input cannot be blank and must be type {0}\n'.format(expected_type))
     return ask_user_question(ask, re_filter, expected_type)
 
 # Validate if the user age is greater than low_range and less than high_range
