@@ -4,7 +4,7 @@ import re
 
 
 # Return True if seat available else return False
-def is_a_seat_available(seats_available) -> bool:
+def seat_available(seats_available) -> bool:
     if seats_available > 0:
         return True
     return False
