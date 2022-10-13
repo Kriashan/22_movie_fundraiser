@@ -3,7 +3,7 @@ import csv
 import re
 
 
-# Return True if there is a seat available
+# Return True if seat available else return False
 def is_a_seat_available(seats_available) -> bool:
     if seats_available > 0:
         return True
@@ -24,11 +24,15 @@ def is_a_seat_available(seats_available) -> bool:
 #    sys.stdout.write("Your age must be an integer between {0} and {1}".format(min_user_age, max_user_age))
 #    return ask_user_for_age(min_user_age, max_user_age)
 
-# Ask question until the answer is not blank
-def ask_user_question(question='', regex_character_filter=''):
-    if (answer := ''.join(re.findall(regex_character_filter, input(question)))) != '':
-        return answer
-    sys.stdout.write('Input cannot be blank')
+# Asks the user a question until answer is not blank and is expected type
+def ask_user_question(question='', regex_character_filter='', expected_type='str'):
+    if (answer := ''.join(re.findall(regex_character_filter, input(question)))) != '': 
+        if eval('type(answer) == type({0}(answer))'.format(expected_type)):
+            return answer
+        else:
+            sys.stdout.write('Invalid type recieved expected: {0}\n'.format(expected_type))
+    else:
+        sys.stdout.write('Input cannot be blank\n')
     return ask_user_question(question, regex_character_filter)
 
 # Validate if the user age is greater than low_range and less than high_range
