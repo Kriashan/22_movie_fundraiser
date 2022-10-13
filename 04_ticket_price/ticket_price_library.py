@@ -33,8 +33,8 @@ def seat_available(seats_available) -> bool:
         return True
     return False
 
-# Return True if seats_availabe greater than seats_limit else return False
+# Return True if seats_limit greater than seats_available else return False
 def seat_maximum(seats_available, seats_limit) -> bool:
-    if seats_available > seats_limit:
+    if seats_limit >= seats_available:
         return True
     return False
