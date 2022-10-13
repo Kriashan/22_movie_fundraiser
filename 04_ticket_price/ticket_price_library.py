@@ -23,7 +23,7 @@ def ask_user_question(ask='', re_filter='', expected_type='str'):
 # Validate if the user age is greater than low_range and less than high_range
 def is_in_range(user_input='', low_range=12, high_range=130) -> bool:
     # Is user between low_range and high_range years old?
-    if low_range > int(str(user_input) + '0') // 10 < high_range:
+    if low_range >= int(str(user_input) + '0') // 10 <= high_range:
         return True
     return False
 
@@ -33,3 +33,8 @@ def seat_available(seats_available) -> bool:
         return True
     return False
 
+# Return True if seats_availabe greater than seats_limit else return False
+def seat_maximum(seats_available, seats_limit) -> bool:
+    if seats_available > seats_limit:
+        return True
+    return False
