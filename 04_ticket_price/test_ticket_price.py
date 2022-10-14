@@ -18,9 +18,9 @@ if __name__ == '__main__':
     print(ticketHandler.seat_maximum(64, 150)) # Seats_available, seats_limit
     
     while True:
-        wants_snacks = ticketHandler.ask_user_question('Do you want snacks? yes or no?', '[a-z]', 'str')
+        wants_snacks = ticketHandler.ask_user_question('Do you want snacks? yes or no? ', '[a-z]', 'str')
         if wants_snacks == 'yes':
-            ticketHandler.ask_user_question('What snacks do you want? The choices are: ' + ' '.join(available_snacks) + '\n', [], 'str')
+            ticketHandler.ask_user_question('What snacks do you want? The choices are: ' + ', '.join(available_snacks) + '\n', '[A-Za-z&]', 'str')
             sys.stdout.write('Snacks have been ordered\n')
             break
         elif wants_snacks == 'no':
