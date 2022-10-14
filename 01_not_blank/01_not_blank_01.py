@@ -1,3 +1,4 @@
+#1672015250.4519193
 def not_blank(question):
 	while True:
 		answer = input(question)
