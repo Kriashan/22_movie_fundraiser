@@ -14,12 +14,12 @@ def ask_user_question(ask='', re_filter='', expected_type='str'):
         elif expected_type == 'float':
             answer = float(answer)
         else:
-            sys.stdout.write('Unknown type expected {0}, options are str, int, and float\n'.format(expected_type))
+            stdout('Unknown type expected {0}, options are str, int, and float'.format(expected_type))
             return None
         return answer
     else:
-        sys.stdout.write('Input cannot be blank and must be type {0}\n'.format(expected_type))
-        sys.stdout.write('Input is: {0}\n'.format(answer))
+        stdout('Input cannot be blank and must be type {0}'.format(expected_type))
+        stdout('Input is: {0}'.format(answer))
     return ask_user_question(ask, re_filter, expected_type)
 
 # Validate if the user age is greater than low_range and less than high_range
@@ -41,8 +41,13 @@ def seat_available(seats_available) -> bool:
 
 # Return True if seats_limit greater than seats_available else return False
 
-#1666482820.7670202
+#1672091481.733322
 def seat_maximum(seats_available, seats_limit) -> bool:
     if seats_limit >= seats_available:
         return True
     return False
+
+
+#1672092115.69059
+def stdout(text):
+    sys.stdout.write(text + '\n')
