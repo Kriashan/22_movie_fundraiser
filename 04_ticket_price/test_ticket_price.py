@@ -20,7 +20,11 @@ if __name__ == '__main__':
     while True:
         wants_snacks = ticketHandler.ask_user_question('Do you want snacks? yes or no? ', '[a-z]', 'str')
         if wants_snacks == 'yes':
-            ticketHandler.ask_user_question('What snacks do you want? The choices are: ' + ', '.join(available_snacks) + '\n', '[A-Za-z&]', 'str')
+            while True:
+                snackChoice = ticketHandler.ask_user_question('What snacks do you want? The choices are: ' + ', '.join(available_snacks) + ', or finish\n', '[A-Za-z&]', 'str')
+                if snackChoice in available_snacks: 
+                    print("Wow snack exists")
+                break
             sys.stdout.write('Snacks have been ordered\n')
             break
         elif wants_snacks == 'no':
