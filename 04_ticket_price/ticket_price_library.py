@@ -3,8 +3,7 @@ import csv
 import re
 
 # Asks the user a question until answer is not blank and is expected type
-
-#1666482820.7644794
+#review time: 1672092488.6429076
 def ask_user_question(ask='', re_filter='', expected_type='str'):
     if (answer := ''.join(re.findall(re_filter, input(ask)))) != '': 
         if expected_type == 'str':
@@ -23,8 +22,7 @@ def ask_user_question(ask='', re_filter='', expected_type='str'):
     return ask_user_question(ask, re_filter, expected_type)
 
 # Validate if the user age is greater than low_range and less than high_range
-
-#1666482820.7660208
+#review time: 1672092488.646927
 def is_in_range(user_input='', low_range=12, high_range=130) -> bool:
     # Is user between low_range and high_range years old?
     if low_range >= int(str(user_input) + '0') // 10 <= high_range:
@@ -32,22 +30,18 @@ def is_in_range(user_input='', low_range=12, high_range=130) -> bool:
     return False
 
 # Return True if seat available else return False
-
-#1672015546.7213275
+#review time: 1672092488.6488945
 def seat_available(seats_available) -> bool:
     if seats_available > 0:
         return True
     return False
 
 # Return True if seats_limit greater than seats_available else return False
-
-#1672091481.733322
+#review time: 1672092488.649891
 def seat_maximum(seats_available, seats_limit) -> bool:
     if seats_limit >= seats_available:
         return True
     return False
 
-
-#1672092115.69059
 def stdout(text):
-    sys.stdout.write(text + '\n')
+    sys.stdout.write(str(text) + '\n')

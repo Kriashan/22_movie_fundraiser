@@ -1,9 +1,8 @@
 import ticket_price_library as ticketHandler
 import sys
 
-#1672092114.1040628
 def stdout(text):
-    sys.stdout.write(text + '\n')
+    sys.stdout.write(str(text) + '\n')
 
 if __name__ == '__main__':
     available_snacks = {
@@ -13,10 +12,11 @@ if __name__ == '__main__':
                         "Orange juice": {"Price": 3.25},
                         "Water": {"Price": 2.00},
                        }
+
     ticket_brackets = {
-                        "15": {"Price": 7.50},
-                        "64": {"Price": 10.50},
-                        "65": {"Price": 6.50}
+                        15: {"Price": 7.50},
+                        64: {"Price": 10.50},
+                        65: {"Price": 6.50}
                       }
 
     #print(ticketLibrary.is_a_seat_available())
@@ -30,10 +30,13 @@ if __name__ == '__main__':
         wants_snacks = ticketHandler.ask_user_question('Do you want snacks? yes or no? ', '[a-z]', 'str')
         if wants_snacks == 'yes':
             while True:
-                snackChoice = ticketHandler.ask_user_question('What snacks do you want? The choices are: ' + ', '.join(available_snacks) + ', or finish\n', '[A-Za-z&]', 'str')
+                snackChoice = ticketHandler.ask_user_question('What snacks do you want? The choices are: ' + ', '.join(available_snacks) + ', or finish.\n', '[A-Za-z&]', 'str')
+                if snackChoice == 'finish':
+                    break
                 if snackChoice in available_snacks: 
                     stdout("Wow snack exists")
-                break
+                else:
+                    stdout("That snack does not exist")
             stdout('Snacks have been ordered')
             break
         elif wants_snacks == 'no':
