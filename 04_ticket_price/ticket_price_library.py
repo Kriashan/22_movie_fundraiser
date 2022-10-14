@@ -33,7 +33,7 @@ def is_in_range(user_input='', low_range=12, high_range=130) -> bool:
 
 # Return True if seat available else return False
 
-#1666482820.7660208
+#1672015546.7213275
 def seat_available(seats_available) -> bool:
     if seats_available > 0:
         return True
