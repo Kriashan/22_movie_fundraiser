@@ -3,7 +3,7 @@ import csv
 import re
 
 # Asks the user a question until answer is not blank and is expected type
-#review time: 1672176693.7507904
+#review time: 1672180489.980126
 def ask_user_question(ask='', re_filter='', expected_type='str'):
     if (answer := ''.join(re.findall(re_filter, input(ask)))) != '': 
         if expected_type == 'str':

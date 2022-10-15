@@ -2,7 +2,7 @@ import ticket_price_library as ticketHandler
 import pandas
 import csv
 
-#review time: 1672129459.5744226
+#review time: 1672180488.330147
 def order_snacks(user_name, user_age):
     available_snacks = {
                     "Popcorn": {"Price": 2.50, "Profit": 0.5},
@@ -46,9 +46,10 @@ def order_snacks(user_name, user_age):
                     break
                 if snackChoice in available_snacks: 
                     snackQuantity = ticketHandler.ask_user_question('What quantity of {0} would you like to order?'.format(snackChoice), '[0-9]', 'int')
+                    ticketHandler.stdout('Added {0} {1} to your order'.format(snackQuantity, snackChoice))
                     ticketHandler.stdout('Added price: ${0:.2f}'.format(available_snacks[snackChoice]['Price'] * snackQuantity))
                     ticketHandler.stdout('Profit: ${0:.2f}'.format(available_snacks[snackChoice]['Profit'] * snackQuantity))
-                    if ordered_snacks[snackChoice][len(ordered_snacks[snackChoice])-1] + snackQuantity < 0:
+                    if ordered_snacks[snackChoice][len(ordered_snacks[snackChoice])-1] + snackQuantity >= 0:
                         ordered_snacks[snackChoice][len(ordered_snacks[snackChoice])-1] += snackQuantity
                         ordered_snacks['Price'][len(ordered_snacks['Price'])-1] += available_snacks[snackChoice]['Price'] * snackQuantity
                         ordered_snacks['Profit'][len(ordered_snacks['Profit'])-1] += available_snacks[snackChoice]['Profit'] * snackQuantity
