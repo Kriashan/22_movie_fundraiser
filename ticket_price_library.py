@@ -43,5 +43,6 @@ def seat_maximum(seats_available, seats_limit) -> bool:
         return True
     return False
 
+#review time: 1672094442.4970124
 def stdout(text):
     sys.stdout.write(str(text) + '\n')
