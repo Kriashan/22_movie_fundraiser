@@ -38,7 +38,6 @@ if __name__ == '__main__':
                 if snackChoice == 'finish':
                     break
                 if snackChoice in available_snacks: 
-                    stdout("You have chosen the snack {0}".format(snackChoice))
                     snackQuantity = ticketHandler.ask_user_question('What quantity of {0} would you like to order?'.format(snackChoice), '[0-9]', 'int')
                 else:
                     stdout("That snack does not exist")
