@@ -1,17 +1,13 @@
 import ticket_price_library as ticketHandler
 import sys
 
-#review time: 1672094442.4830754
-def stdout(text):
-    sys.stdout.write(str(text) + '\n')
-
 if __name__ == '__main__':
     available_snacks = {
-                        "Popcorn": {"Price": 2.50},
-                        "M&M": {"Price": 3.00},
-                        "Pita Chips": {"Price": 4.50},
-                        "Orange juice": {"Price": 3.25},
-                        "Water": {"Price": 2.00},
+                        "Popcorn": {"Price": 2.50, "Profit": 0.5},
+                        "M&M": {"Price": 3.00, "Profit": 0.60},
+                        "Pita Chips": {"Price": 4.50, "Profit": 0.90},
+                        "Orange juice": {"Price": 3.25, "Profit": 0.65},
+                        "Water": {"Price": 2.00, "Profit": 0.40},
                        }
 
     ticket_brackets = {
@@ -21,11 +17,11 @@ if __name__ == '__main__':
                       }
 
     #print(ticketLibrary.is_a_seat_available())
-    stdout(ticketHandler.ask_user_question('What is your first name?', '[A-Za-z]', 'str'))
-    stdout(ticketHandler.ask_user_question('What is your age?', '[0-9]', 'int'))
-    stdout(ticketHandler.seat_maximum(151, 150)) # Seats_available, seats_limit
-    stdout(ticketHandler.seat_maximum(-5, 150)) # Seats_available, seats_limit
-    stdout(ticketHandler.seat_maximum(64, 150)) # Seats_available, seats_limit
+    ticketHandler.stdout(ticketHandler.ask_user_question('What is your first name?', '[A-Za-z]', 'str'))
+    ticketHandler.stdout(ticketHandler.ask_user_question('What is your age?', '[0-9]', 'int'))
+    ticketHandler.stdout(ticketHandler.seat_maximum(151, 150)) # Seats_available, seats_limit
+    ticketHandler.stdout(ticketHandler.seat_maximum(-5, 150)) # Seats_available, seats_limit
+    ticketHandler.stdout(ticketHandler.seat_maximum(64, 150)) # Seats_available, seats_limit
     
     while True:
         wants_snacks = ticketHandler.ask_user_question('Do you want snacks? yes or no? ', '[a-z]', 'str')
@@ -39,14 +35,16 @@ if __name__ == '__main__':
                     break
                 if snackChoice in available_snacks: 
                     snackQuantity = ticketHandler.ask_user_question('What quantity of {0} would you like to order?'.format(snackChoice), '[0-9]', 'int')
-                    stdout('Added cost: ${0:.2f}'.format(available_snacks[snackChoice]['Price'] * snackQuantity))
-                    stdout('Profit: ${0:.2f}'.format(available_snacks[snackChoice]['Price'] * snackQuantity * 0.2))
+                    ticketHandler.stdout('Added cost: ${0:.2f}'.format(available_snacks[snackChoice]['Price'] * snackQuantity))
+                    ticketHandler.stdout('Profit: ${0:.2f}'.format(available_snacks[snackChoice]['Profit'] * snackQuantity))
+                    cost = round(available_snacks[snackChoice]['Price'] * snackQuantity, 2)
+                    profit = round(available_snacks[snackChoice]['Profit'] * snackQuantity, 2)
                 else:
-                    stdout("That snack does not exist")
-            stdout('Snacks have been ordered')
+                    ticketHandler.stdout("That snack does not exist")
+            ticketHandler.stdout('Snacks have been ordered')
             break
         elif wants_snacks == 'no':
-            stdout('Snacks have not been ordered')
+            ticketHandler.stdout('Snacks have not been ordered')
             break
-        stdout("Please input yes or no")
+        ticketHandler.stdout("Please input yes or no")
     
