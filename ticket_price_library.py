@@ -3,19 +3,21 @@ import csv
 import re
 
 # Asks the user a question until answer is not blank and is expected type
-#review time: 1672092488.6429076
+#review time: 1672176693.7507904
 def ask_user_question(ask='', re_filter='', expected_type='str'):
     if (answer := ''.join(re.findall(re_filter, input(ask)))) != '': 
         if expected_type == 'str':
             answer = str(answer)
+            return answer
         elif expected_type == 'int':
             answer = int(answer)
+            return answer
         elif expected_type == 'float':
             answer = float(answer)
+            return answer
         else:
             stdout('Unknown type expected {0}, options are str, int, and float'.format(expected_type))
             return None
-        return answer
     else:
         stdout('Input cannot be blank and must be type {0}'.format(expected_type))
         stdout('Input is: {0}'.format(answer))
