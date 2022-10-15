@@ -33,12 +33,14 @@ if __name__ == '__main__':
             while True:
                 ask = 'What snacks do you want? The choices are: '
                 for item in available_snacks:
-                    ask += item + ': ${0} ea, '.format(available_snacks[item]['Price'])
-                snackChoice = ticketHandler.ask_user_question(ask + ', or finish.\n', '[A-Za-z&]', 'str')
+                    ask += item + ': ${0:.2f} ea, '.format(available_snacks[item]['Price'])
+                snackChoice = ticketHandler.ask_user_question(ask + 'or finish.\n', '[A-Za-z&]', 'str')
                 if snackChoice == 'finish':
                     break
                 if snackChoice in available_snacks: 
                     snackQuantity = ticketHandler.ask_user_question('What quantity of {0} would you like to order?'.format(snackChoice), '[0-9]', 'int')
+                    stdout('Added cost: ${0:.2f}'.format(available_snacks[snackChoice]['Price'] * snackQuantity))
+                    stdout('Profit: ${0:.2f}'.format(available_snacks[snackChoice]['Price'] * snackQuantity * 0.2))
                 else:
                     stdout("That snack does not exist")
             stdout('Snacks have been ordered')
