@@ -12,7 +12,7 @@ def order_snacks(user_name, user_age):
                     "Water": {"Price": 2.00, "Profit": 0.40},
                     }
 
-    ordered_snacks = {'Name': [],
+    order = {'Name': [],
                       'Age': [],
                       'Popcorn': [],
                       'M&M': [],
@@ -29,20 +29,20 @@ def order_snacks(user_name, user_age):
                     150: {'Price': 6.50, 'Profit': 1.50}
                     }
 
-    ordered_snacks['Name'].append(user_name)
-    ordered_snacks['Age'].append(user_age)
-    ordered_snacks['Popcorn'].append(0)
-    ordered_snacks['M&M'].append(0)
-    ordered_snacks['Pita_chips'].append(0)
-    ordered_snacks['Orange juice'].append(0)
-    ordered_snacks['Water'].append(0)
-    ordered_snacks['Price'].append(0)
-    ordered_snacks['Profit'].append(0)
+    order['Name'].append(user_name)
+    order['Age'].append(user_age)
+    order['Popcorn'].append(0)
+    order['M&M'].append(0)
+    order['Pita_chips'].append(0)
+    order['Orange juice'].append(0)
+    order['Water'].append(0)
+    order['Price'].append(0)
+    order['Profit'].append(0)
 
     for age in ticket_brackets:
         if user_age < age:
-            ordered_snacks['Price'][len(ordered_snacks['Price'])-1] += ticket_brackets[age]['Price']
-            ordered_snacks['Profit'][len(ordered_snacks['Profit'])-1] += ticket_brackets[age]['Profit']
+            order['Price'][len(order['Price'])-1] += ticket_brackets[age]['Price']
+            order['Profit'][len(order['Profit'])-1] += ticket_brackets[age]['Profit']
             break
 
     while True:
@@ -60,23 +60,23 @@ def order_snacks(user_name, user_age):
                     ticketHandler.stdout('Added {0} {1} to your order'.format(snackQuantity, snackChoice))
                     ticketHandler.stdout('Added price: ${0:.2f}'.format(available_snacks[snackChoice]['Price'] * snackQuantity))
                     ticketHandler.stdout('Profit: ${0:.2f}'.format(available_snacks[snackChoice]['Profit'] * snackQuantity))
-                    if ordered_snacks[snackChoice][len(ordered_snacks[snackChoice])-1] + snackQuantity >= 0:
-                        ordered_snacks[snackChoice][len(ordered_snacks[snackChoice])-1] += snackQuantity
-                        ordered_snacks['Price'][len(ordered_snacks['Price'])-1] += available_snacks[snackChoice]['Price'] * snackQuantity
-                        ordered_snacks['Profit'][len(ordered_snacks['Profit'])-1] += available_snacks[snackChoice]['Profit'] * snackQuantity
+                    if order[snackChoice][len(order[snackChoice])-1] + snackQuantity >= 0:
+                        order[snackChoice][len(order[snackChoice])-1] += snackQuantity
+                        order['Price'][len(order['Price'])-1] += available_snacks[snackChoice]['Price'] * snackQuantity
+                        order['Profit'][len(order['Profit'])-1] += available_snacks[snackChoice]['Profit'] * snackQuantity
                     else:
                         ticketHandler.stdout('You can not order negative {0}'.format(snackChoice))
-                    data = pandas.DataFrame(ordered_snacks)
+                    data = pandas.DataFrame(order)
 
                     ticketHandler.stdout(data) 
                 else:
                     ticketHandler.stdout('That snack does not exist')
             ticketHandler.stdout('Snacks have been ordered')
-            ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(ordered_snacks['Price'][len(ordered_snacks['Price'])-1]))
+            ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(order['Price'][len(order['Price'])-1]))
             break
         elif wants_snacks == 'no':
             ticketHandler.stdout('Snacks have not been ordered')
-            ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(ordered_snacks['Price'][len(ordered_snacks['Price'])-1]))
+            ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(order['Price'][len(order['Price'])-1]))
             break
         ticketHandler.stdout('Please input yes or no')
 
