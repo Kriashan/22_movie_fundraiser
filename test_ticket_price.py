@@ -3,7 +3,8 @@ import pandas
 import csv
 
 #review time: 1672184810.1298804
-def order_snacks(user_name, user_age):
+def order_snacks(user_name, user_age, order):
+
     available_snacks = {
                     "Popcorn": {"Price": 2.50, "Profit": 0.5},
                     "M&M": {"Price": 3.00, "Profit": 0.60},
@@ -11,17 +12,6 @@ def order_snacks(user_name, user_age):
                     "Orange juice": {"Price": 3.25, "Profit": 0.65},
                     "Water": {"Price": 2.00, "Profit": 0.40},
                     }
-
-    order = {'Name': [],
-                      'Age': [],
-                      'Popcorn': [],
-                      'M&M': [],
-                      'Pita_chips': [],
-                      'Orange juice': [],
-                      'Water': [],
-                      'Price': [],
-                      'Profit': [] 
-                     } # Name, age, Popcorn, M&M, etc, final_cost, profit
     
     ticket_brackets = {
                     15: {'Price': 7.50, 'Profit': 2.50},
@@ -79,11 +69,23 @@ def order_snacks(user_name, user_age):
             ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(order['Price'][len(order['Price'])-1]))
             break
         ticketHandler.stdout('Please input yes or no')
+    return order
 
 
 if __name__ == '__main__':
     pandas.options.display.max_rows = 9999
     tickets_available = 150
+
+    order = {'Name': [],
+                'Age': [],
+                'Popcorn': [],
+                'M&M': [],
+                'Pita_chips': [],
+                'Orange juice': [],
+                'Water': [],
+                'Price': [],
+                'Profit': [] 
+                } # Name, age, Popcorn, M&M, etc, final_cost, profit
 
     while True:
         ticketHandler.stdout('{0} tickets available'.format(tickets_available))
@@ -93,7 +95,7 @@ if __name__ == '__main__':
             if ticketHandler.is_in_range(user_age):
                 ticketHandler.stdout('Unfortunately you are not within the age range required for this movie')
                 continue
-            snacks_ordered = order_snacks(user_name, user_age)
+            order = order_snacks(user_name, user_age, order)
             tickets_available -= 1
         else:
             ticketHandler.stdout("Sorry we are sold out")
