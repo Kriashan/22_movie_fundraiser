@@ -57,14 +57,34 @@ def order_snacks(user_name, user_age, order):
                     else:
                         ticketHandler.stdout('You can not order negative {0}'.format(snackChoice))
                     data = pandas.DataFrame(order)
-
+                    
+                    data.to_csv("data.csv")
                     ticketHandler.stdout(data) 
                 else:
                     ticketHandler.stdout('That snack does not exist')
+            while True:
+                payment = ticketHandler.ask_user_question('Will you be paying with cash or card?', '[a-z]', 'str')
+                if payment == 'cash':
+                    break
+                elif payment == 'card':
+                    order['Price'][len(order['Price'])-1] *= 1.05
+                    break
+                else:
+                    ticketHandler.stdout('Please choose cash or card')
             ticketHandler.stdout('Snacks have been ordered')
             ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(order['Price'][len(order['Price'])-1]))
             break
         elif wants_snacks == 'no':
+            while True:
+                payment = ticketHandler.ask_user_question('Will you be paying with cash or card?', '[a-z]', 'str')
+                if payment == 'cash':
+                    break
+                elif payment == 'card':
+                    order['Price'][len(order['Price'])-1] *= 1.05
+                    break
+                else:
+                    ticketHandler.stdout('Please choose cash or card')
+            ticketHandler.stdout('Snacks have been ordered')
             ticketHandler.stdout('Snacks have not been ordered')
             ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(order['Price'][len(order['Price'])-1]))
             break
