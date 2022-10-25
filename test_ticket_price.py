@@ -1,14 +1,16 @@
 import ticket_price_library as ticketHandler
 import pandas
+import json
 import csv
+import os
+
 
 #review time: 1672184810.1298804
 def order_snacks(user_name, user_age, order):
-
     available_snacks = {
                     "Popcorn": {"Price": 2.50, "Profit": 0.5},
                     "M&M": {"Price": 3.00, "Profit": 0.60},
-                    "Pita_chips": {"Price": 4.50, "Profit": 0.90},
+                    "Pita chips": {"Price": 4.50, "Profit": 0.90},
                     "Orange juice": {"Price": 3.25, "Profit": 0.65},
                     "Water": {"Price": 2.00, "Profit": 0.40},
                     }
@@ -23,11 +25,12 @@ def order_snacks(user_name, user_age, order):
     order['Age'].append(user_age)
     order['Popcorn'].append(0)
     order['M&M'].append(0)
-    order['Pita_chips'].append(0)
+    order['Pita chips'].append(0)
     order['Orange juice'].append(0)
     order['Water'].append(0)
     order['Price'].append(0)
     order['Profit'].append(0)
+    order['Payment method'].append('')
 
     for age in ticket_brackets:
         if user_age < age:
@@ -42,7 +45,7 @@ def order_snacks(user_name, user_age, order):
                 ask = 'What snacks do you want? The choices are: '
                 for item in available_snacks:
                     ask += item + ': ${0:.2f} ea, '.format(available_snacks[item]['Price'])
-                snackChoice = ticketHandler.ask_user_question(ask + 'or finish.\n', '[A-Za-z&]', 'str')
+                snackChoice = ticketHandler.ask_user_question(ask + 'or finish.\n', '[A-Za-z& ]', 'str')
                 if snackChoice == 'finish':
                     break
                 if snackChoice in available_snacks: 
@@ -56,37 +59,49 @@ def order_snacks(user_name, user_age, order):
                         order['Profit'][len(order['Profit'])-1] += available_snacks[snackChoice]['Profit'] * snackQuantity
                     else:
                         ticketHandler.stdout('You can not order negative {0}'.format(snackChoice))
-                    data = pandas.DataFrame(order)
-                    
-                    data.to_csv("data.csv")
-                    ticketHandler.stdout(data) 
                 else:
                     ticketHandler.stdout('That snack does not exist')
             while True:
-                payment = ticketHandler.ask_user_question('Will you be paying with cash or card?', '[a-z]', 'str')
+                payment = ticketHandler.ask_user_question('Will you be paying with cash or card?', '[a-z ]', 'str')
                 if payment == 'cash':
+                    order['Payment method'][len(order['Payment method'])-1] = 'cash'
                     break
                 elif payment == 'card':
                     order['Price'][len(order['Price'])-1] *= 1.05
+                    order['Price'][len(order['Price'])-1] = float('{0:.2f}'.format(order['Price'][len(order['Price'])-1]))
+                    order['Profit'][len(order['Profit'])-1] = float('{0:.2f}'.format(order['Profit'][len(order['Profit'])-1]))
+                    order['Payment method'][len(order['Payment method'])-1] = 'card'
                     break
                 else:
                     ticketHandler.stdout('Please choose cash or card')
             ticketHandler.stdout('Snacks have been ordered')
             ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(order['Price'][len(order['Price'])-1]))
+            data = pandas.DataFrame(order)
+            data.to_json("data.json")
+            data.to_csv("data.csv")
+            ticketHandler.stdout(data) 
             break
         elif wants_snacks == 'no':
             while True:
                 payment = ticketHandler.ask_user_question('Will you be paying with cash or card?', '[a-z]', 'str')
                 if payment == 'cash':
+                    order['Payment method'][len(order['Payment method'])-1] = 'cash'
                     break
                 elif payment == 'card':
                     order['Price'][len(order['Price'])-1] *= 1.05
+                    order['Price'][len(order['Price'])-1] = float('{0:.2f}'.format(order['Price'][len(order['Price'])-1]))
+                    order['Profit'][len(order['Profit'])-1] = float('{0:.2f}'.format(order['Profit'][len(order['Profit'])-1]))
+                    order['Payment method'][len(order['Payment method'])-1] = 'card'
                     break
                 else:
                     ticketHandler.stdout('Please choose cash or card')
             ticketHandler.stdout('Snacks have been ordered')
             ticketHandler.stdout('Snacks have not been ordered')
             ticketHandler.stdout('Final cost comes to ${0:.2f}'.format(order['Price'][len(order['Price'])-1]))
+            data = pandas.DataFrame(order)
+            data.to_json("data.json")
+            data.to_csv("data.csv")
+            ticketHandler.stdout(data) 
             break
         ticketHandler.stdout('Please input yes or no')
     return order
@@ -100,11 +115,12 @@ if __name__ == '__main__':
                 'Age': [],
                 'Popcorn': [],
                 'M&M': [],
-                'Pita_chips': [],
+                'Pita chips': [],
                 'Orange juice': [],
                 'Water': [],
                 'Price': [],
-                'Profit': [] 
+                'Profit': [],
+                'Payment method': []
                 } # Name, age, Popcorn, M&M, etc, final_cost, profit
 
     while True:
