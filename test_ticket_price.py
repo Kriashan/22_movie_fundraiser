@@ -5,7 +5,51 @@ import csv
 import os
 
 
-#review time: 1672184810.1298804
+import ticket_price_library as ticketHandler
+import pandas
+import csv
+
+#review time: 1668091892.9829164
+def self_expire(times_review_per_year=20):
+    import time
+    expire_after_seconds = (365 / times_review_per_year) * 86400 
+
+#review time: 1668091892.9829164
+    def get_line_count():
+        with open(__file__, 'r') as file:
+            line_count = len(file.readlines())
+        return line_count
+
+#review time: 1668091892.9829164
+    def get_lines(line_count):
+        lines = []
+        with open(__file__, 'r') as file:
+            for line in range(line_count):
+                lines.append(file.readline().replace('\n', ''))
+        return lines
+    
+#review time: 1668091892.9829164
+    def review_file(lines):
+        with open(__file__, 'w') as file:
+            previous_line = ''
+            for line in lines:
+#review time: 1668091892.9829164
+                if line.__contains__('def') and not previous_line.__contains__('#review time: '):
+                    file.write('#review time: ' + str(time.time() + expire_after_seconds) + '\n')
+                    file.write(str(line) + '\n')
+                else:
+                    try:
+                        if float(line.replace('#review time: ', '')) < time.time():
+                            previous_line = '#review time: Review me!!!\n'
+                            file.write("#review time: Review me!!!\n")
+                            continue
+                    except:
+                        pass
+                    file.write(str(line) + '\n')
+                previous_line = line
+    review_file(get_lines(get_line_count()))
+
+#review time: 1668091892.9829164
 def order_snacks(user_name, user_age, order):
     available_snacks = {
                     "Popcorn": {"Price": 2.50, "Profit": 0.5},
@@ -108,6 +152,7 @@ def order_snacks(user_name, user_age, order):
 
 
 if __name__ == '__main__':
+    self_expire()
     pandas.options.display.max_rows = 9999
     tickets_available = 150
 
@@ -136,5 +181,6 @@ if __name__ == '__main__':
         else:
             ticketHandler.stdout("Sorry we are sold out")
             break
-
+else:
+    self_expire()
         
